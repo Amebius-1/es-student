@@ -1,0 +1,32 @@
+задание: 2.1.2
+проект: 211-command-usb
+устройство: 2e8a:000a
+серийный номер: 504446728835BE1C
+порт: COM4
+начало: 2026-10-25T19:38:53
+   0.000 --> enable
+   0.137 <-- enable
+   0.138 <-- dbg read_line:107 got enable
+   0.138 <-- inf cmd_enable:33 led on
+   2.175 --> disable
+   2.318 <-- disable
+   2.318 <-- dbg read_line:107 got disable
+   2.319 <-- inf cmd_disable:39 led off
+   4.364 --> info
+   4.459 <-- info
+   4.459 <-- dbg read_line:107 got info
+   4.460 <-- project: 211-command-usb
+   4.460 <-- repo: https://github.com/Amebius-1/es-student
+   4.460 <-- board: pico
+   4.461 <-- serial: 504446728835BE1C
+   4.461 <-- chip: manufacturer 0x927, part 0x0002, revision 2
+   4.462 <-- pico-sdk: 2.3.0
+   6.509 --> ping
+   6.600 <-- ping
+   6.600 <-- dbg read_line:107 got ping
+   6.601 <-- pong
+   8.625 --> nosuchcommand
+   8.901 <-- nosuchcommand
+   8.901 <-- dbg read_line:107 got nosuchcommand
+   8.902 <-- err handle_command:88 unknown command: nosuchcommand
+итог: отправлено команд 5, принято строк 20
