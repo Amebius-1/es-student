@@ -35,3 +35,4 @@
 **Раздел 2.2**
 - [![check-2-2-1](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-1.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-1.yml)
 - [![check-2-2-2](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-2.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-2.yml)
+- [![check-2-2-3](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-3.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-3.yml)
