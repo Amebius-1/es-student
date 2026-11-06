@@ -1,0 +1,26 @@
+задание: 2.2.1
+проект: 221-command-time
+устройство: 2e8a:000a
+серийный номер: 504446728835BE1C
+порт: COM4
+начало: 2026-11-06T18:51:54
+   0.000 --> clk_info
+   0.169 <-- clk_info
+   0.169 <-- dbg read_line:130 got clk_info
+   0.170 <-- signal     set_khz measured_khz
+   0.171 <-- clk_ref      12000        12001
+   0.172 <-- clk_sys     125000       125000
+   0.173 <-- clk_peri    125000       125000
+   0.174 <-- clk_usb      48000        48000
+   0.175 <-- clk_adc      48000        48000
+   0.176 <-- rosc             -         5503
+   2.200 --> info
+   2.296 <-- info
+   2.297 <-- dbg read_line:130 got info
+   2.297 <-- project: 221-command-time
+   2.298 <-- repo: https://github.com/Amebius-1/es-student
+   2.298 <-- board: pico
+   2.298 <-- serial: 504446728835BE1C
+   2.299 <-- chip: manufacturer 0x927, part 0x0002, revision 2
+   2.299 <-- pico-sdk: 2.3.0
+итог: отправлено команд 2, принято строк 17
