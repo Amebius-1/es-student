@@ -40,3 +40,6 @@
 - [![check-2-2-3](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-3.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-3.yml)
 - [![check-2-2-4](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-4.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-4.yml)
 - [![check-2-2-5](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-5.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-2-5.yml)
+
+### Занятие 2.3
+- [![check-2-3-1](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-1.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-1.yml)
