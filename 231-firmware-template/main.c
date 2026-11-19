@@ -9,6 +9,7 @@
 #include "stdio-text-protocol.h"
 #include "led-task.h"
 #include "button-task.h"
+#include "pi-task.h"
 
 int main()
 {
@@ -16,6 +17,7 @@ int main()
 
     led_task_init();
     button_task_init();
+    pi_task_init();
 
     profiling_init();
 
@@ -27,6 +29,7 @@ int main()
 
         led_task_handle();
         button_task_handle();
+        pi_task_handle();
 
         const command_t *command = stdio_text_protocol_handle();
         if (command != NULL)
