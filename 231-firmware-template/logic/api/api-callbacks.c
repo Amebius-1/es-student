@@ -13,11 +13,9 @@
 
 #include "firmware.h"
 
-#include "led-task.h"
-#include "button-task.h"
-#include "pi-task.h"
-
-#include "pico/stdlib.h"
+#include "led-task/led-task.h"
+#include "button-task/button-task.h"
+#include "pi-task/pi-task.h"
 
 static bool parse_u32(const char *text, uint32_t *value)
 {

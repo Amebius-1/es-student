@@ -17,32 +17,57 @@ target_compile_definitions(profiling PUBLIC
     PROFILING_ENABLED=1
 )
 
+add_library(platform STATIC
+    platform/platform.c
+)
+
+target_include_directories(platform PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_link_libraries(platform PRIVATE
+    pico_stdlib
+)
+
+add_library(logic STATIC
+    logic/api/api.c
+    logic/api/api-callbacks.c
+    logic/led-task/led-task.c
+    logic/button-task/button-task.c
+    logic/pi-task/pi-task.c
+)
+
+target_include_directories(logic PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/logic
+)
+
+target_link_libraries(logic PUBLIC
+    stdio_text_protocol
+)
+
+target_link_libraries(logic PRIVATE
+    device
+    logging
+    profiling
+    systime
+    platform
+)
+
 add_executable(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/main.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/api/api.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/api/api-callbacks.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/led-task/led-task.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/button-task/button-task.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/pi-task/pi-task.c
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/api
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/led-task
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/button-task
-    ${CMAKE_CURRENT_SOURCE_DIR}/logic/pi-task
 )
 
 target_link_libraries(${PROJECT_NAME}
     pico_stdlib
-    pico_unique_id
-
-    device
+    platform
+    logic
     logging
     profiling
     stdio_text_protocol
-    systime
 )
 
 pico_enable_stdio_usb(${PROJECT_NAME} 1)

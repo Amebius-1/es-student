@@ -1,5 +1,4 @@
 #include "pi-task.h"
-#include "pico/stdlib.h"
 #include "systime/systime.h"
 
 // Расчёт: 1 000 000 членов занимают 4.7 с (4 700 000 мкс).
