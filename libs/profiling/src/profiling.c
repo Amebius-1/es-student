@@ -1,5 +1,7 @@
-#include "profiling.h"
+#include "profiling/profiling.h"
 #include "pico/stdlib.h"
+
+#if PROFILING_ENABLED
 
 typedef struct {
     const char *name;
@@ -62,3 +64,5 @@ void profiling_reset(void)
         stopwatches[i].max = 0;
     }
 }
+
+#endif

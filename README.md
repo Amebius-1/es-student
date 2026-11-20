@@ -47,3 +47,4 @@
 - [![check-2-3-3](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-3.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-3.yml)
 - [![check-2-3-4](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-4.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-4.yml)
 - [![check-2-3-5](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-5.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-5.yml)
+- [![check-2-3-6](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-6.yml/badge.svg)](https://github.com/Amebius-1/es-student/actions/workflows/check-2-3-6.yml)

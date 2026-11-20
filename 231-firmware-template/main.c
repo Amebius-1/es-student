@@ -2,14 +2,17 @@
 
 #include <stdio.h>
 
-#include "log.h"
-#include "device.h"
-#include "profiling.h"
+#include "logging/log.h"
+#include "device/device.h"
+#include "profiling/profiling.h"
+#include "stdio-text-protocol/stdio-text-protocol.h"
+
 #include "api.h"
-#include "stdio-text-protocol.h"
 #include "led-task.h"
 #include "button-task.h"
 #include "pi-task.h"
+
+#include "firmware.h"
 
 typedef enum {
     STOPWATCH_LOOP,
@@ -23,7 +26,8 @@ int main()
 {
     stdio_init_all();
     sleep_ms(2000);
-    LOG_INF("%s %s\n", DEVICE_NAME, FIRMWARE_VERSION);
+    
+    LOG_INF("%s %s\n", FIRMWARE_NAME, FIRMWARE_VERSION);
 
     profiling_stopwatch_init(STOPWATCH_LOOP, "loop");
     profiling_stopwatch_init(STOPWATCH_COMMAND, "command");

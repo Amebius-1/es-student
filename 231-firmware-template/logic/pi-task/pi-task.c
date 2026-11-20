@@ -1,5 +1,6 @@
 #include "pi-task.h"
 #include "pico/stdlib.h"
+#include "systime/systime.h"
 
 // Расчёт: 1 000 000 членов занимают 4.7 с (4 700 000 мкс).
 // Один член = 4.7 мкс. Для порога 0.5 мс (500 мкс) нужно 500 / 4.7 ≈ 106 членов.
@@ -34,7 +35,7 @@ bool pi_task_start(uint32_t terms)
     pi_sign = 1.0;
     pi_result = 0.0;
 
-    start_us = time_us_32();
+    start_us = (uint32_t)systime_us();
     state = PI_STATE_RUNNING;
 
     return true;
@@ -62,7 +63,7 @@ void pi_task_handle(void)
 
     if (pi_k == pi_n) {
         pi_result = 4.0 * pi_sum;
-        end_us = time_us_32();
+        end_us = (uint32_t)systime_us();
         state = PI_STATE_READY;
     }
 }

@@ -2,6 +2,7 @@
 #include "pico/stdlib.h"
 #include "hardware/gpio.h"
 #include "led-task.h"
+#include "systime/systime.h"
 
 #define BUTTON_PIN 15
 #define DEBOUNCE_TIME_US 20000
@@ -30,7 +31,8 @@ void button_task_init(void)
 void button_task_handle(void)
 {
     bool level = gpio_get(BUTTON_PIN);
-    uint32_t now_us = time_us_32();
+    
+    uint32_t now_us = (uint32_t)systime_us();
 
     switch (button_state)
     {

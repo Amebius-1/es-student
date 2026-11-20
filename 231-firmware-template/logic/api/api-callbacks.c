@@ -6,8 +6,13 @@
 #include <ctype.h>
 
 #include "api-commands.h"
-#include "device.h"
-#include "profiling.h"
+
+#include "device/device.h"
+#include "profiling/profiling.h"
+#include "systime/systime.h"
+
+#include "firmware.h"
+
 #include "led-task.h"
 #include "button-task.h"
 #include "pi-task.h"
@@ -41,10 +46,11 @@ static void cmd_info(const command_t *command)
     device_info_t info;
     device_get_info(&info);
 
-    printf("name: %s\n", DEVICE_NAME);
+    printf("name: %s\n", FIRMWARE_NAME);
     printf("version: %s\n", FIRMWARE_VERSION);
-    printf("project: %s\n", DEVICE_PROJECT);
-    printf("repo: %s\n", DEVICE_REPO);
+    printf("project: %s\n", FIRMWARE_PROJECT);
+    printf("repo: %s\n", FIRMWARE_REPO);
+
     printf("board: %s\n", info.board);
     printf("serial: %s\n", info.serial);
     printf("chip: manufacturer 0x%03x, part 0x%04x, revision %u\n", (unsigned)info.manufacturer, (unsigned)info.part, (unsigned)info.revision);
@@ -54,7 +60,7 @@ static void cmd_info(const command_t *command)
 static void cmd_uptime(const command_t *command)
 {
     (void)command;
-    printf("uptime: %llu ms\n", time_us_64() / 1000);
+    printf("uptime: %llu ms\n", systime_ms());
 }
 
 static void cmd_pi_start(const command_t *command)
@@ -167,6 +173,12 @@ static void cmd_button(const command_t *command)
 static void cmd_profiling(const command_t *command)
 {
     (void)command;
+
+    #if !PROFILING_ENABLED
+        printf("profiling is disabled in this build\n");
+        return;
+    #endif
+    
     profiling_result_t res;
     
     for (uint32_t i = 0; i < PROFILING_COUNT; i++) {
