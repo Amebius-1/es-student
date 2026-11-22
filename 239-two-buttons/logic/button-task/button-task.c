@@ -11,8 +11,7 @@ typedef enum {
     BUTTON_STATE_RELEASED,
     BUTTON_STATE_PRESSING,
     BUTTON_STATE_PRESSED,
-    BUTTON_STATE_RELEASING,
-    BUTTON_STATE_LONG_PRESS
+    BUTTON_STATE_RELEASING
 } button_state_t;
 
 typedef struct {
@@ -21,6 +20,7 @@ typedef struct {
     uint32_t press_count;
     button_task_callback_t on_press_cb;
     button_task_callback_t on_long_press_cb;
+    bool long_reported;
 } button_t;
 
 static button_t buttons[PLATFORM_BUTTON_COUNT];
@@ -33,6 +33,7 @@ void button_task_init(uint8_t button_id, button_task_callback_t on_press, button
     buttons[button_id].press_count = 0;
     buttons[button_id].on_press_cb = on_press;
     buttons[button_id].on_long_press_cb = on_long_press;
+    buttons[button_id].long_reported = false;
 }
 
 void button_task_handle(void)
@@ -56,18 +57,22 @@ void button_task_handle(void)
                     buttons[i].state = BUTTON_STATE_RELEASED;
                 } else if (now_us - buttons[i].state_start_us >= DEBOUNCE_TIME_US) {
                     buttons[i].state = BUTTON_STATE_PRESSED;
+                    buttons[i].state_start_us = now_us;
+                    
+                    if (buttons[i].on_long_press_cb == NULL) {
+                        buttons[i].press_count++;
+                        if (buttons[i].on_press_cb != NULL) buttons[i].on_press_cb();
+                    }
                 }
                 break;
 
             case BUTTON_STATE_PRESSED:
                 if (!is_pressed) {
-                    buttons[i].state_start_us = now_us;
                     buttons[i].state = BUTTON_STATE_RELEASING;
-                } else if (now_us - buttons[i].state_start_us >= LONG_PRESS_TIME_US) {
-                    if (buttons[i].on_long_press_cb != NULL) {
-                        buttons[i].on_long_press_cb();
-                    }
-                    buttons[i].state = BUTTON_STATE_LONG_PRESS;
+                    buttons[i].state_start_us = now_us;
+                } else if (!buttons[i].long_reported && (now_us - buttons[i].state_start_us >= LONG_PRESS_TIME_US)) {
+                    if (buttons[i].on_long_press_cb != NULL) buttons[i].on_long_press_cb();
+                    buttons[i].long_reported = true;
                 }
                 break;
 
@@ -76,26 +81,23 @@ void button_task_handle(void)
                     buttons[i].state = BUTTON_STATE_PRESSED;
                 } else if (now_us - buttons[i].state_start_us >= DEBOUNCE_TIME_US) {
                     buttons[i].state = BUTTON_STATE_RELEASED;
-                    buttons[i].press_count++;
-                    if (buttons[i].on_press_cb != NULL) {
-                        buttons[i].on_press_cb();
+                    
+                    if (buttons[i].on_long_press_cb != NULL && !buttons[i].long_reported) {
+                        buttons[i].press_count++;
+                        if (buttons[i].on_press_cb != NULL) buttons[i].on_press_cb();
                     }
-                }
-                break;
-
-            case BUTTON_STATE_LONG_PRESS:
-                if (!is_pressed) {
-                    buttons[i].state = BUTTON_STATE_RELEASED;
+                    buttons[i].long_reported = false;
                 }
                 break;
         }
     }
 }
 
+
 bool button_task_is_pressed(uint8_t button_id)
 {
     if (button_id >= PLATFORM_BUTTON_COUNT) return false;
-    return (buttons[button_id].state == BUTTON_STATE_PRESSED || buttons[button_id].state == BUTTON_STATE_RELEASING || buttons[button_id].state == BUTTON_STATE_LONG_PRESS);
+    return (buttons[button_id].state == BUTTON_STATE_PRESSED || buttons[button_id].state == BUTTON_STATE_RELEASING);
 }
 
 uint32_t button_task_get_press_count(uint8_t button_id)

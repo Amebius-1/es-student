@@ -3,7 +3,10 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#define PLATFORM_BUTTON_COUNT 2
+#define PLATFORM_BUTTON_LED    0
+#define PLATFORM_BUTTON_PERIOD 1
+
+#define PLATFORM_BUTTON_COUNT  2
 
 void platform_init(void);
 

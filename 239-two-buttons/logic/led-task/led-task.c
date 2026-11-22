@@ -86,3 +86,8 @@ void led_task_next_period(void)
     else p = 250;
     led_task_set_period_ms(p);
 }
+
+void led_task_blink(void)
+{
+    led_task_set_state(LED_STATE_BLINK);
+}
